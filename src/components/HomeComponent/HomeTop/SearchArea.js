@@ -1,20 +1,24 @@
 import React, { useState } from 'react';
-import './searchArea.scss';
+
 import Col from 'react-bootstrap/Col';
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
 
-import { getMoviesByFilter } from '../../../backend/homeReqs';
+import { getMoviesByFilter } from '../../../backend/Movie';
+
+import './searchArea.scss';
 
 const SearchArea = (props) => {
     const [state, setState] = useState({
-        name: "",
-        startYear: NaN,
-        endYear: NaN,
-        startRank: NaN,
-        endRank: NaN,
-        genre: "",
+        name: null,
+        startYear: null,
+        endYear: null,
+        startRank: null,
+        endRank: null,
+        genre: null,
+        actor: null,
+        director: null,
     });
 
     const handleChange = e => {

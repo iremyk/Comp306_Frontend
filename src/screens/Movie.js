@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { getMovieById } from "../backend/getMovie";
+import { getMovieById } from "../backend/Movie";
 import Spinner from "react-bootstrap/Spinner";
 
 export default class Movie extends Component {
