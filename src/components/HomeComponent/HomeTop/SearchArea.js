@@ -9,94 +9,103 @@ import { getMoviesByFilter } from '../../../backend/Movie';
 
 import './searchArea.scss';
 
-const SearchArea = (props) => {
-    const [state, setState] = useState({
-        name: null,
-        startYear: null,
-        endYear: null,
-        startRank: null,
-        endRank: null,
-        genre: null,
-        actor: null,
-        director: null,
-    });
+const SearchArea = ({ setFilterResults }) => {
+  const [state, setState] = useState({ name: "", startYear: 0, endYear: 0, startRank: 0, endRank: 0, genre: "", director: "", actor: "" });
 
-    const handleChange = e => {
-        e.preventDefault();
-        switch (e.target.name) {
-            case "name":
-                setState(prevState => ({ ...prevState, name: e.target.value }));
-                break;
-            case "sstartYear":
-                setState(prevState => ({ ...prevState, startYear: parseInt(e.target.value) }));
-                break;
-            case "endYear":
-                setState(prevState => ({ ...prevState, endYear: parseInt(e.target.value) }));
-                break;
-            case "startRank":
-                setState(prevState => ({ ...prevState, startRank: parseFloat(e.target.value) }));
-                break;
-            case "endRank":
-                setState(prevState => ({ ...prevState, endRank: parseFloat(e.target.value) }));
-                break;
-            case "genre":
-                setState(prevState => ({ ...prevState, genre: e.target.value }));
-                break;
+  const handleChange = (event) => {
+    setState((prev) => ({ ...prev, [event.target.name]: event.target.value }));
+  };
 
-            default:
-                break;
-        }
-    };
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const movies = await getMoviesByFilter(state);
+    setFilterResults(movies);
+  };
 
-    return (
-        <React.Fragment>
-            <div id="mainDiv">
-                <Container>
+  return (
+    <React.Fragment>
+      <div id="mainDiv">
+        <Container>
+          <div className="main">
+            <div id="form-wrapper">
+              <Form onSubmit={handleSubmit}>
 
-                    <div className="main">
+                <Form.Row>
+                  <Form.Group as={Col}>
+                    <Form.Text style={{ textAlign: "center", fontWeight: 'bold', color: "black", fontSize: '30px' }}>Search</Form.Text>
+                  </Form.Group>
+                </Form.Row>
 
-                        <div id="form-wrapper">
-                            <Form onSubmit={(e) => {getMoviesByFilter(e); console.log(e)}}>
+                <Form.Row>
+                  <Form.Group as={Col} controlId="name" style={{ padding: '0' }}>
+                    <Form.Control className="formControl" value={state.name} onChange={handleChange} type="text" placeholder="Movie Name" name="name" />
+                  </Form.Group>
+                </Form.Row>
 
-                                <Form.Row>
-                                    <Form.Group as={Col}>
-                                        <Form.Text style={{ textAlign: "center", fontWeight: 'bold', color: "black", fontSize:'30px'}}>Search</Form.Text>
-                                    </Form.Group>
-                                </Form.Row>
-                                <Form.Row>
-                                    <Form.Group as={Col} controlId="name">
-                                        <Form.Control className="formControl" type="text" placeholder="Name " name="name" onChange={handleChange} />
-                                    </Form.Group>
-                                </Form.Row>
-                                <Form.Row>
-                                    <Form.Group as={Col} controlId="genre">
-                                        <Form.Control className="formControl" type="text" placeholder="Genre " name="genre" onChange={handleChange} />
-                                    </Form.Group>
-                                </Form.Row>
-                                <Form.Row style={{alignItems: 'center', justifyContent: 'space-between', margin:'10px'}}>
-                                    <Form.Control className="formControlRank" type="number" placeholder="Start Year " name="startYear" onChange={handleChange} />
-                                    <Form.Control className="formControlRank" type="number" placeholder="End Year" name="endYear" onChange={handleChange} />
-                                </Form.Row>
-                                <Form.Row style={{alignItems: 'center', justifyContent: 'space-between',  margin:'10px'}}>
-                                    <Form.Control className="formControlRank" type="number" placeholder="Start Rank " name="startRank" onChange={handleChange} step="0.01" />
-                                    <Form.Control className="formControlRank" type="number" placeholder="End Rank" name="endRank" onChange={handleChange} step="0.01" />
+                <Form.Row style={{ alignItems: 'center', justifyContent: 'space-between', marginBottom: '1rem' }}>
+                  <Form.Control className="formControlRank" value={state.startYear || undefined} onChange={handleChange} type="number" placeholder="Start Year" name="startYear" />
+                  <Form.Control className="formControlRank" value={state.endYear || undefined} onChange={handleChange} type="number" placeholder="End Year" name="endYear" />
+                </Form.Row>
 
-                                </Form.Row>
-                                <Form.Row>
-                                    <Form.Group as={Col} style={{ display:'flex', padding: '10px', alignItems: 'center', justifyContent:'center'}}>
-                                        <Button className="formControl" variant="primary" type="submit" style={{ width: "200px" }}>
-                                            Search
-                                        </Button>
-                                    </Form.Group>
-                                </Form.Row>
-                            </Form>
-                        </div>
-                    </div>
-                </Container>
+                <Form.Row style={{ alignItems: 'center', justifyContent: 'space-between', marginBottom: '1rem' }}>
+                  <Form.Control className="formControlRank" value={state.startRank || undefined} onChange={handleChange} type="number" placeholder="Start Rank" name="startRank" step="0.01" />
+                  <Form.Control className="formControlRank" value={state.endRank || undefined} onChange={handleChange} type="number" placeholder="End Rank" name="endRank" step="0.01" />
+                </Form.Row>
+
+                <Form.Row>
+                  <Form.Group as={Col} controlId="genre" style={{ padding: '0' }}>
+                    <Form.Control className="formControl" value={state.genre} onChange={handleChange} as="select" placeholder="Genre" name="genre">
+                      <option disabled value="">Genre</option>
+                      <option value="Documentary">Documentary</option>
+                      <option value="Short">Short</option>
+                      <option value="Comedy">Comedy</option>
+                      <option value="Crime">Crime</option>
+                      <option value="Western">Western</option>
+                      <option value="Animation">Animation</option>
+                      <option value="Drama">Drama</option>
+                      <option value="Romance">Romance</option>
+                      <option value="Mystery">Mystery</option>
+                      <option value="Thriller">Thriller</option>
+                      <option value="Adult">Adult</option>
+                      <option value="Music">Music</option>
+                      <option value="Action">Action</option>
+                      <option value="Fantasy">Fantasy</option>
+                      <option value="Sci-Fi">Sci-Fi</option>
+                      <option value="Horror">Horror</option>
+                      <option value="Musical">Musical</option>
+                      <option value="Adventure">Adventure</option>
+                      <option value="Film-Noir">Film-Noir</option>
+                    </Form.Control>
+                  </Form.Group>
+                </Form.Row>
+
+                <Form.Row>
+                  <Form.Group as={Col} controlId="director" style={{ padding: '0' }}>
+                    <Form.Control className="formControl" value={state.director} onChange={handleChange} type="text" placeholder="Director Name" name="director" />
+                  </Form.Group>
+                </Form.Row>
+
+                <Form.Row>
+                  <Form.Group as={Col} controlId="actor" style={{ padding: '0' }}>
+                    <Form.Control className="formControl" value={state.actor} onChange={handleChange} type="text" placeholder="Actor Name" name="actor" />
+                  </Form.Group>
+                </Form.Row>
+
+                <Form.Row>
+                  <Form.Group as={Col} style={{ display: 'flex', padding: '10px', alignItems: 'center', justifyContent: 'center' }}>
+                    <Button className="formControl" variant="primary" type="submit" style={{ width: "200px" }}>
+                      Search
+                    </Button>
+                  </Form.Group>
+                </Form.Row>
+
+              </Form>
             </div>
-        </React.Fragment>
-    )};
+          </div>
+        </Container>
+      </div>
+    </React.Fragment>
+  )
+};
 
 export default SearchArea;
-
- 
