@@ -97,8 +97,10 @@ const Home = () => {
                 <tbody>
                   {state.mostRatedDirectors.map((item) => (
                     <tr key={item.id}>
-                      <td>{item.name}</td>
-                      <td>{Math.round(item.avg_rank * 10) / 10}</td>
+                      <a href={`/director/${item.id}`} style={{ width: "100%", display: "contents" }}>
+                        <td>{item.name}</td>
+                        <td>{Math.round(item.avg_rank * 10) / 10}</td>
+                      </a>
                     </tr>
                   ))}
                 </tbody>
