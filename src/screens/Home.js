@@ -58,10 +58,10 @@ export default class Home extends Component {
                     <Container>
                         <SearchArea />
                             <div className='mainHomeDiv'>
+                                <h1>Random Movies</h1>
                             <table style={{minWidth: "70%"}}>
                                 <thead>
                                     <tr>
-                                        <th>ID</th>
                                         <th>Name</th>
                                         <th>Year</th>
                                         <th>Rank</th>
@@ -72,7 +72,6 @@ export default class Home extends Component {
                                         
                                             <tr key={item.id}>
                                                 <a href={`/movie/${item.id}`} style={{width: "100%", display: "contents"}}>
-                                                <td>{item.id}</td>
                                                 <td>{item.name}</td>
                                                 <td>{item.year}</td>
                                                 <td>{item.rank ? item.rank : "-"}</td>
@@ -83,7 +82,8 @@ export default class Home extends Component {
                                 </tbody>
                             </table>
 
-                            <div style={{margin: "50px", width:'100%', display:'flex', justifyContent: 'center', alignItems:'center'}}>
+                            <div style={{margin: "50px", width:'100%', display:'flex', justifyContent: 'center', alignItems:'center', flexDirection: 'column'}}>
+                                <h1>Most Rated Directors</h1>
                                 <table style={{minWidth: "70%"}}>
                                     <thead>
                                         <tr>
