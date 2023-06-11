@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import SearchArea from '../components/HomeComponent/HomeTop/SearchArea';
-import { getMoviesByFilter, getRandomMovies, getMostRatedDirectors } from "../backend/homeReqs";
+import { getMostRatedDirectors } from "../backend/Director";
+import { getRandomMovies, getMoviesByFilter } from "../backend/Movie";
 import { Button, Container } from 'react-bootstrap';
 import "./Home.scss";
 
