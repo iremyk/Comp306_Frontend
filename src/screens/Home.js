@@ -94,8 +94,10 @@ export default class Home extends Component {
                                     <tbody>
                                         {this.state?.mostRatedDirectors.map((item) => (
                                             <tr key={item.id}>
+                                                <a href={`/director/${item.id}`} style={{width: "100%", display: "contents"}}>
                                                 <td>{item.name}</td>
                                                 <td>{item.avg_rank}</td>
+                                                </a>
                                             </tr>
                                         ))}
                                     </tbody>
