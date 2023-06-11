@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { getDirectorById } from "../backend/getDirectorById";
+import { getDirectorById, getFavoriteGenres } from "../backend/Director";
 import Spinner from "react-bootstrap/Spinner";
 
 export default class Director extends Component {
@@ -7,18 +7,22 @@ export default class Director extends Component {
 		super(props);
 		this.state = {
 			data: null,
+            data2: null,
 			isLoading: true,
 		};
 	}
 
 	async componentDidMount() {
 		let data = await getDirectorById(this.props.DirectorId);
+        let data2 = await getFavoriteGenres(this.props.DirectorId);
 		this.setState({
 			data: data ? data : null,
+            data2: data2 ? data2 : null,
 			isLoading: false,
 		});
+        console.log(data);
+		console.log(data2);
 
-		console.log(data);
 	}
 
 	render() {
@@ -42,6 +46,13 @@ export default class Director extends Component {
                                             </b>
                                         </h3>
                                         <h4>
+                                            Favorite Genres:{" "}
+                                            <b>
+                                                {this.state.data2.map((g) => {
+                                                    return `${g.genre} `;
+                                                }
+                                                )}
+                                            </b>
                                             
                                         </h4>
 										

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 import Col from 'react-bootstrap/Col';
 import Button from "react-bootstrap/Button";
@@ -19,6 +20,7 @@ const SearchArea = (props) => {
         genre: null,
         actor: null,
         director: null,
+        data : null,
     });
 
     const handleChange = e => {
@@ -27,7 +29,7 @@ const SearchArea = (props) => {
             case "name":
                 setState(prevState => ({ ...prevState, name: e.target.value }));
                 break;
-            case "sstartYear":
+            case "startYear":
                 setState(prevState => ({ ...prevState, startYear: parseInt(e.target.value) }));
                 break;
             case "endYear":
@@ -54,9 +56,10 @@ const SearchArea = (props) => {
                 <Container>
 
                     <div className="main">
+                        
 
                         <div id="form-wrapper">
-                            <Form onSubmit={(e) => {getMoviesByFilter(e); console.log(e)}}>
+                            <Form>
 
                                 <Form.Row>
                                     <Form.Group as={Col}>
@@ -82,12 +85,15 @@ const SearchArea = (props) => {
                                     <Form.Control className="formControlRank" type="number" placeholder="End Rank" name="endRank" onChange={handleChange} step="0.01" />
 
                                 </Form.Row>
-                                <Form.Row>
-                                    <Form.Group as={Col} style={{ display:'flex', padding: '10px', alignItems: 'center', justifyContent:'center'}}>
-                                        <Button className="formControl" variant="primary" type="submit" style={{ width: "200px" }}>
-                                            Search
-                                        </Button>
-                                    </Form.Group>
+                                <Form.Row style={{display: 'flex', justifyContent:'center'}}>
+                                        <Link to={{pathname: "/searchResults", state:{data: state.data}}}  onClick={async (e) => {
+                                        
+                                        let data = await getMoviesByFilter(state);
+                                        setState({data: data})
+
+                                        console.log(data);
+                                    }}>Search</Link>
+
                                 </Form.Row>
                             </Form>
                         </div>

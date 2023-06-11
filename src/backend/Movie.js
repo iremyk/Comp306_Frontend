@@ -19,7 +19,7 @@ export const getMovieById = async (id) => {
 
 export const getMoviesByFilter = async ( {name, startYear, endYear, startRank, endRank, actor, director, genre }) => {
   try {
-		let response = await fetch(`${routes.getMoviesByFilter}?name=${name}&startYear=${startYear}&endYear=${endYear}&startRank=${startRank}&endRank=${endRank}&actor=${actor}&director=${director}&genre=${genre}`, {
+		let response = await fetch(`${routes.getMovieByFilter}?name=${name}&startYear=${startYear}&endYear=${endYear}&startRank=${startRank}&endRank=${endRank}&actor=${actor}&director=${director}&genre=${genre}`, {
 			method: "GET",
 			headers: {
 				Accept: "application/json",
