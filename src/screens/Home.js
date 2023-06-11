@@ -43,7 +43,7 @@ const Home = () => {
         <Container>
           <SearchArea setFilterResults={setFilterResults} />
 
-          {filterResults.length > 0 && (
+          {filterResults?.length > 0 && (
             <div style={{ marginTop: "50px", width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
               <table style={{ minWidth: "70%" }}>
                 <thead>
