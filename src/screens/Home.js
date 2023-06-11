@@ -54,7 +54,7 @@ const Home = () => {
                 <tbody>
                   {filterResults.map((item) => (
                     <tr key={item.name}>
-                      <td>{item.name}</td>
+                      <a href={`/movie/${item.id}`}><td>{item.name}</td></a>
                     </tr>
                   ))}
                 </tbody>
