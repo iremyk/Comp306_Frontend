@@ -44,7 +44,8 @@ const Home = () => {
           <SearchArea setFilterResults={setFilterResults} />
 
           {filterResults?.length > 0 && (
-            <div style={{ marginTop: "50px", width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+            <div style={{ marginTop: "50px", width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' , flexDirection:'column'}}>
+                <h2>Search Results</h2>
               <table style={{ minWidth: "70%" }}>
                 <thead>
                   <tr>
@@ -63,10 +64,10 @@ const Home = () => {
           )}
 
           <div className='mainHomeDiv'>
+            <h2>Random Movies</h2>
             <table style={{ minWidth: "70%" }}>
               <thead>
                 <tr>
-                  <th>ID</th>
                   <th>Name</th>
                   <th>Year</th>
                   <th>Rank</th>
@@ -76,7 +77,6 @@ const Home = () => {
                 {state.renderList.map((item) => (
                   <tr key={item.id}>
                     <a href={`/movie/${item.id}`} style={{ width: "100%", display: "contents" }}>
-                      <td>{item.id}</td>
                       <td>{item.name}</td>
                       <td>{item.year}</td>
                       <td>{item.rank ? item.rank : "-"}</td>
@@ -86,7 +86,8 @@ const Home = () => {
               </tbody>
             </table>
 
-            <div style={{ margin: "50px", width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+            <div style={{ margin: "50px", width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection:'column' }}>
+                <h2>Most Rated Directors</h2>
               <table style={{ minWidth: "70%" }}>
                 <thead>
                   <tr>

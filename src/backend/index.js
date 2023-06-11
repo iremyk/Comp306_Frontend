@@ -9,6 +9,7 @@ const getFavoriteGenres = API + "/getFavoriteGenres";
 const getMostRatedRoles = API + "/getMostRatedRoles";
 const getActorById = API + "/getActorById";
 const getMovieByFilter = API + "/getMovieByFilter";
+const getCommonMovies = API + "/getCommonMovies";
 
 
 
@@ -21,5 +22,6 @@ export const routes = {
     getFavoriteGenres,
     getMostRatedRoles,
     getActorById,
-    getMovieByFilter
+    getMovieByFilter,
+    getCommonMovies
 }

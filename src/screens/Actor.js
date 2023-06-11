@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { getActorById, getMostRatedRoles} from "../backend/Actor";
+import { getActorById, getCommonMovies, getMostRatedRoles} from "../backend/Actor";
 import Spinner from "react-bootstrap/Spinner";
 import { Button } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
@@ -12,6 +12,7 @@ export default class Actor extends Component {
 		this.state = {
 			data: null,
             data2: null,
+            commonMovies: null,
 			isLoading: true,
 		};
 	}
@@ -69,7 +70,7 @@ export default class Actor extends Component {
                                                         <td>{r.role}</td>
                                                         <td>{r.name}</td>
                                                         <td>{r.year}</td>
-                                                        <td>{r.rank}</td>
+                                                        <td>{r.rank ? r.rank : '-'}</td>
                                                     </tr>
                                                 )
                                             })}
@@ -80,7 +81,7 @@ export default class Actor extends Component {
 										
 									</div>
 
-                                    <div id="form-wrapper">
+                                    <div id="form-wrapper" style={{marginTop:'50px'}}>
                                         <Form>
 
                                             <Form.Row>
@@ -93,15 +94,47 @@ export default class Actor extends Component {
                                                     <Form.Control className="formControl" type="text" placeholder="Name " name="name" />
                                                 </Form.Group>
                                             </Form.Row>
-                                            <Form.Row>
+                                            <Form.Row style={{display:'flex', justifyContent:'center'}}>
                                                 <Button variant="primary" type="submit" onClick={async (e) => {
-                                                    
+                                                    e.preventDefault();
+                                                    let name = document.getElementById("name").value;
+
+
+                                                    let data = await getCommonMovies(this.state.data[0].id, name);
+                                                    console.log(data);
+                                                    this.setState({ commonMovies: data });
+
                                                 }}>
                                                     Submit
                                                 </Button>
                                             </Form.Row>
                                         </Form>
                                     </div>
+                                    {this.state.commonMovies ? (
+                                        <>
+                                        <div style={{display:'flex', flexDirection:'column'}}>
+                                            <h4 style={{marginTop: '50px', textAlign:'center'}}>
+                                                Common Movies
+                                            </h4>
+                                            <table>
+                                                <tr>
+                                                    <th>Movie</th>
+                                                    <th>Year</th>
+                                                    <th>Rank</th>
+                                                </tr>
+                                                {this.state.commonMovies.map((r) => {
+                                                    return (
+                                                        <tr>
+                                                            <td>{r.name}</td>
+                                                            <td>{r.year}</td>
+                                                            <td>{r.rank ? r.rank : '-'}</td>
+                                                        </tr>
+                                                    )
+                                                })}
+                                            </table>
+                                        </div>
+                                            
+                                        </>) : (<></>)}
 								</>
 							) : (
 								<div className="error">
