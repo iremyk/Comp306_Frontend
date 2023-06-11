@@ -6,6 +6,8 @@ import NavigationBar from "./components/NavigationBar/NavigationBar";
 import Home from "./screens/Home";
 import Movie from "./screens/Movie";
 import Director from "./screens/Director";
+import Actor from "./screens/Actor";
+import SearchResults from "./screens/SearchResults";
 
 class App extends React.Component {
 	render() {
@@ -34,7 +36,21 @@ class App extends React.Component {
 							return <Director DirectorId={p.match.params.id} />;
 						}}
 					/>	
-                    
+					<Route
+						exact
+						path="/actor/:id"
+						component={(p) => {
+							return <Actor ActorId={p.match.params.id} />;
+						}}
+					/>
+					<Route
+						exact
+						path="/searchResults"
+						component={(p) => {
+							return <SearchResults/>;
+						}}
+					/>
+
 				</Switch>
 			</React.Fragment>
 		);
